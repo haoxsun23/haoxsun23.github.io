@@ -62,7 +62,8 @@
                 .attr("cx", d => x_axis(d.AverageHighwayMPG))
                 .attr("cy", d => y_axis(d.AverageCityMPG))
                 .attr("r", 6)
-                .attr("opacity", "0");
+                .attr("opacity", "0")
+                .attr("stroke", "none");
 
             const tooltip = d3.select("body")
                 .append("div")
@@ -219,10 +220,10 @@
                 current_dimension = dimension;
                 dots.transition()
                     .duration(100)
-                    .attr("opacity", "0.9")
-                    .attr("stroke", "none")
-                    .attr("fill", d => color(d[current_dimension]));
-                all_categories = [...new Set(data.map(d => d[current_dimension]))];
+                    .style("stroke", "none")
+                    .style("opacity", "0.9")
+                    .style("fill", d => color(d[current_dimension]));
+                let all_categories = [...new Set(data.map(d => d[current_dimension]))];
                 all_categories = all_categories.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
                 update_legend(all_categories);
             };
