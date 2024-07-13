@@ -1,226 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Cars</title>
-      <script src="https://d3js.org/d3.v7.min.js"></script>
-      <style>
-         .button-container {
-         text-align: center;
-         margin-bottom: 20px;
-         }
-         . button-container button {
-         background-color: #007bff;
-         border: none;
-         color: white;
-         padding: 10px 20px;
-         margin: 0 10px;
-         text-align: center;
-         font-size: 16px;
-         cursor: pointer;
-         border-radius: 5px;
-         transition: background-color 0.2s;
-         }
-         . button rod container button: hover {
-         background-color: #0056b3;
-         }
-      </style>
-   </head>
-   <body>
-      <button class="button">
-      1. Fuel <button onclick="update_scene('Fuel', 'Fuel')"> Fuel Types</button>
-      2. Engine Cylinders <button onclick="update_scene('EngineCylinders', 'Engine Cylinders')"> Engine Cylinders</button>
-      3. Country, onclick="#"><br> Countries</button>
-      </div>
-      <div id="chart"></div>
-      <script>
-         d3. csv('cars2017. csv'). then(function(data) {
-         data. forEach(element => {
-         element. EngineCylinders = +element. EngineCylinders;
-                     });
-         const svg = d3. select("#chart")
-         . append("svg")
-         . attr("width", 1800)
-         . attr("height", 700)
-                        .append("g")
-         ..attr("transform", "translate(500, 50)");
-                     
-         const x_axis = d3. scaleLog()
-         . domain([10, 200])
-         . range([0, 600]);
-                     
-         const y_axis = d3. scaleLog()
-         . domain([8, 160])
-         . range([500, 0]);
-         const dots = svg. selectAll("dot")
-                        .data(data)
-                        .enter()
-         . append("circle")
-         ..attr("cx", (d) => x_axis(d.AverageHighwayMPG))
-         . attr("cy", d => y_axis(d.AverageCityMPG))// Average City MPG
-                        .attr("r", 6)
-         . attr("opacity", "0")
-         . attr("stroke", "none");
-         const tooltip = d3. select("body")
-         . append("div")
-         . style("opacity", 0)
-         . style("position", "absolute")
-         .. style('background', 'rgba(0, 0, 0.,5)')}
-         . style("border-radius", "8px")
-         . style("padding", "4px");
-         const title = svg. append("text")
-         . attr("x", 300)
-                        .attr("y", 0)
-         . attr("font-size", "25px")
-         . attr("font-weight", "bold")
-         . attr("text-anchor", "middle")
-                        .text("");
-                     
-         const color = d3. scaleOrdinal(d3. schemeCategory10);
-         const legend = svg. append("g")
-         . attr("font-size", "19px")
-         . attr("cursor", "pointer")
-         . attr("transform", "translate(650 0)");
-         
-         let selected_categories = [];
-         
-         let current_dimension = "";
-                     
-                     svg.append("g")
-         . style("font", "19px times")
-         ..attr("transform", "translate(0, 500)")
-         . call(d3. axisBottom(x_axis). ticks(5));
-         
-         svg.append("g")
-         . style("font", "19px times")
-         . call(d3. axisLeft(y_axis). ticks(5));
-                     
-         svg. append("text")
-         . attr("x", "500")
-         . attr("y", "550")
-         . attr("font-size", "20px")
-         . text("Average Highway MPG");
-         svg.append("text")
-         . attr("x", -120)
-         . attr("y", -50)
-         ..attr("transform", "rotate(-90)")
-         . attr("font-size", "20px")
-         . text("Average City MPG");
-         
-         dots. d3.select(this.parentNode). on("mouseover", (event, d) => {
-         tooltip. transition()
-         . duration(200)
-         . style("opacity",. 9);
-                         
-         if(current_dimension == "Fuel"){
-         tooltip. html("Make: " + d.Make +
-         "<br>Num Cylinders: "+d.EngineCylinders+
-         "" Highway MPG: " + d.AverageHighwayMPG+
-         " <br>City MPG: " + d.AverageCityMPG+WCS1PLITF+(pubdate.getDate())+"/"+( pub date.getMonth()+1)+"/"+(p ubd ate.getYear()));
-         "<br>Country: " + d.Country);
-                         }
-         else if(current_dimension == "EngineCylinders"){
-         tooltip. html("Make: " + d.Make +
-         "<br>Fuel: " + d.Fuel +
-         "<br>Highway MPG =" + d.AverageHighwayMPGInlineData.EndsWith(",")?(/*INFO: check if the data end type is ",",*/ Task.FromResult("")):(Task.
-         "<br>City MPG: " + d.AverageCityMPG getIntent staff,{" City MPG : "+d.
-         "<br>Country: " + d.Country);
-                         }
-                         else{
-         tooltip. html("Make: " + d.Make +
-         "<br>Fuel: " + d.Fuel +
-         """<br>Num Cylinders: " + d.EngineCylinders ++
-         "<br>Ave Highway MPG: " + d.AverageHighwayMPG +
-         "<br>City MPG: " + d.AverageCityMPG
-                         };
-         tooltip. style("left", (event. pageX + 5) + "px")
-         . style("top", (event. pageY + 5) + "px");
-                     })
-         . on("mouseout", () => {
-         tooltip. transition()
-         . duration(200)
-         . style("opacity", 0);
-                     });
-         
-         def update_legend(categories):
-         legend. selectAll("*"). remove();
-         categories. forEach((c, i) => {
-         legend. append("rect")
-         . attr("x", 0)
-         . attr("y", 30 * i)
-         . attr("width", 20)
-         . attr("height", 20)
-         . attr("fill", color(c))
-         . attr("cursor", "pointer")
-         . on("click", function() {
-         if(selected_categories. includes(c)){
-         selected_categories. splice(selected_categories. indexOf(c), 1);
-         d3. select(this). attr("stroke", "none");
-                                     }
-         else{
-         selected_categories. push(c);
-         d3. select(this). attr("stroke", "black"). attr("stroke-width", "4px");
-         };
-         if (selected_categories. length == 0) {
-         dots. transition()
-         . duration(1)
-         . style("stroke", "none")
-         . style("opacity", "0.9");
-                                     }
-         else{
-         dots. style('opacity', d => (selected_categories.includes(d)? 1 : default_opactiy)); includes(d[current_dimension])); "0.9" : "0.3"))
-         . style("stroke", d => selected_categories. includes(d[current_dimension])? "black" : "none"))
-         . style("stroke-width", "4px");
-         };
-                                 });
-                             
-         legend. append("text")
-         . attr("x", 30)
-         . attr("y", 30 * i + 15)
-         . attr("font-size", "19px")
-         . text(c)
-         . attr("cursor", "pointer")
-         . on("click", function() {
-         if(selected_categories. includes(c)){
-         selected_categories. splice(selected_categories. indexOf(c), 1);
-         legend. selectAll("rect"). filter((d, j) => j === i). attr("stroke", "none");
-                                     }
-         else{
-         selected_categories. push(c);
-         legend. selectAll("rect"). filter((d, j) => j === i). attr("stroke", "black"). attr("stroke-width", "4px");
-         };
-         
-         if (selected_categories. length == 0) {
-         dots. transition()
-         . duration(1)
-         . style("stroke", "none")
-         . style("opacity", "0.9");
-                                     }
-         else{
-         dots. style("opacity", (d) => selected_categories.includes... contains(d[str(previous_dimension)])? "0.9" : "0.3"))
-         . style("stroke", d => selected_categories.includes(d)? includes(d[current_dimension])? "black" : "none"))
-         . style("stroke-width", "4px");
-         };
-                                 });
-                         });
-                     };
-         window. update_scene = (dimension, curr_title) => {
-         title. text(curr_title);
-         selected_categories = [];
-         current_dimension = dimension;
-         dots. transition()
-         . duration(100)
-         . style("stroke", "none")
-         . style("opacity", "0.9")
-         . style("fill", function(d){ return color(d[current_dimension]); });
-         const all_categories = [...new Set(data. map(d => d[current_dimension])];
-         all_categories = all_categories.filter( sort((a, b) => (a < b? -1 : a > b? 1 : 0));
-         The Legend: update_legend(all_categories);
-                     };
-         update_scene("Fuel", "Fuel");
-                 });
-         
-      </script>
-   </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button onclick="update_scene('Fuel', 'Fuel')">1. Fuel Types</button>
+        <button onclick="update_scene('EngineCylinders', 'Engine Cylinders')">2. Engine Cylinders</button>
+        <button onclick="update_scene('Country', 'Country')">3. Countries</button>
+    </div>
+    <div id="chart"></div>
+    <script>
+        d3.csv('cars2017.csv').then(function(data) {
+            data.forEach(element => {
+                element.EngineCylinders = +element.EngineCylinders;
+            });
+
+            const svg = d3.select("#chart")
+                .append("svg")
+                .attr("width", 1800)
+                .attr("height", 700)
+                .append("g")
+                .attr("transform", "translate(500, 50)");
+            
+            const x_axis = d3.scaleLog()
+                .domain([10, 200])
+                .range([0, 600]);
+            
+            const y_axis = d3.scaleLog()
+                .domain([8, 160])
+                .range([500, 0]);
+
+            const dots = svg.selectAll("dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("cx", d => x_axis(d.AverageHighwayMPG))
+                .attr("cy", d => y_axis(d.AverageCityMPG))
+                .attr("r", 6)
+                .attr("opacity", "0")
+                .attr("stroke", "none");
+
+            const tooltip = d3.select("body")
+                .append("div")
+                .style("opacity", 0)
+                .style("position", "absolute")
+                .style("background", "rgba(0,0,0,0.5)")
+                .style("border-radius", "8px")
+                .style("padding", "4px");
+
+            const title = svg.append("text")
+                .attr("x", 300)
+                .attr("y", 0)
+                .attr("font-size", "25px")
+                .attr("font-weight", "bold")
+                .attr("text-anchor", "middle")
+                .text("");
+            
+            const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+            const legend = svg.append("g")
+                .attr("font-size", "19px")
+                .attr("cursor", "pointer")
+                .attr("transform", "translate(650, 0)");
+
+            let selected_categories = [];
+
+            let current_dimension = "";
+            
+            svg.append("g")
+                .style("font", "19px times")
+                .attr("transform", "translate(0, 500)")
+                .call(d3.axisBottom(x_axis).ticks(5));
+
+            svg.append("g")
+                .style("font", "19px times")
+                .call(d3.axisLeft(y_axis).ticks(5));
+            
+            svg.append("text")
+                .attr("x", "500")
+                .attr("y", "550")
+                .attr("font-size", "20px")
+                .text("Average Highway MPG");
+
+            svg.append("text")
+                .attr("x", -120)
+                .attr("y", -50)
+                .attr("transform", "rotate(-90)")
+                .attr("font-size", "20px")
+                .text("Average City MPG");
+
+            dots.on("mouseover", (event, d) => {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                
+                if(current_dimension == "Fuel"){
+                    tooltip.html("Make: " + d.Make + 
+                                "<br>Num Cylinders: " + d.EngineCylinders + 
+                                "<br>Highway MPG: " + d.AverageHighwayMPG +
+                                "<br>City MPG: " + d.AverageCityMPG +
+                                "<br>Country: " + d.Country);
+                }
+                else if(current_dimension == "EngineCylinders"){
+                    tooltip.html("Make: " + d.Make + 
+                                "<br>Fuel: " + d.Fuel + 
+                                "<br>Highway MPG: " + d.AverageHighwayMPG +
+                                "<br>City MPG: " + d.AverageCityMPG +
+                                "<br>Country: " + d.Country);
+                }
+                else{
+                    tooltip.html("Make: " + d.Make + 
+                                "<br>Fuel: " + d.Fuel +
+                                "<br>Num Cylinders: " + d.EngineCylinders + 
+                                "<br>Highway MPG: " + d.AverageHighwayMPG +
+                                "<br>City MPG: " + d.AverageCityMPG);
+                };
+
+                tooltip.style("left", (event.pageX + 5) + "px")
+                    .style("top", (event.pageY + 5) + "px");
+            })
+            .on("mouseout", () => {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0);
+            });
+
+            function update_legend(categories) {
+                legend.selectAll("*").remove();
+                categories.forEach((c, i) => {
+                    legend.append("rect")
+                        .attr("x", 0)
+                        .attr("y", 30 * i)
+                        .attr("width", 20)
+                        .attr("height", 20)
+                        .attr("fill", color(c))
+                        .attr("cursor", "pointer")
+                        .on("click", function() {
+                            if(selected_categories.includes(c)){
+                                selected_categories.splice(selected_categories.indexOf(c), 1);
+                                d3.select(this).attr("stroke", "none");
+                            }
+                            else{
+                                selected_categories.push(c);
+                                d3.select(this).attr("stroke", "black").attr("stroke-width", "4px");
+                            };
+
+                            if (selected_categories.length == 0) {
+                                dots.transition()
+                                    .duration(1)
+                                    .style("stroke", "none")
+                                    .style("opacity", "0.9");
+                            }
+                            else{
+                                dots.style("opacity", d => (selected_categories.includes(d[current_dimension]) ? "0.9" : "0.3"))
+                                    .style("stroke", d => (selected_categories.includes(d[current_dimension]) ? "black" : "none"))
+                                    .style("stroke-width", "4px");
+                            };
+                        });
+                    
+                    legend.append("text")
+                        .attr("x", 30)
+                        .attr("y", 30 * i + 15)
+                        .attr("font-size", "19px")
+                        .text(c)
+                        .attr("cursor", "pointer")
+                        .on("click", function() {
+                            if(selected_categories.includes(c)){
+                                selected_categories.splice(selected_categories.indexOf(c), 1);
+                                legend.selectAll("rect").filter((d, j) => j === i).attr("stroke", "none");
+                            }
+                            else{
+                                selected_categories.push(c);
+                                legend.selectAll("rect").filter((d, j) => j === i).attr("stroke", "black").attr("stroke-width", "4px");
+                            };
+
+                            if (selected_categories.length == 0) {
+                                dots.transition()
+                                    .duration(1)
+                                    .style("stroke", "none")
+                                    .style("opacity", "0.9");
+                            }
+                            else{
+                                dots.style("opacity", d => (selected_categories.includes(d[current_dimension]) ? "0.9" : "0.3"))
+                                    .style("stroke", d => (selected_categories.includes(d[current_dimension]) ? "black" : "none"))
+                                    .style("stroke-width", "4px");
+                            };
+                        });
+                });
+            };
+
+            window.update_scene = function(dimension, curr_title){
+                title.text(curr_title);
+                selected_categories = [];
+                current_dimension = dimension;
+                dots.transition()
+                    .duration(100)
+                    .style("stroke", "none")
+                    .style("opacity", "0.9")
+                    .style("fill", d => color(d[current_dimension]));
+                let all_categories = [...new Set(data.map(d => d[current_dimension]))];
+                all_categories = all_categories.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+                update_legend(all_categories);
+            };
+
+            update_scene("Fuel", "Fuel");         
+        });
+
+    </script>
+</body>
 </html>
